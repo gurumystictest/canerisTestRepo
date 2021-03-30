@@ -174,15 +174,7 @@ class SummaryInfo:
         return rep_dict
 
     def _pair_replacement(self, seq1, seq2, weight1, weight2, dictionary, letters):
-        """Compare two sequences and generate info on the replacements seen (PRIVATE).
-        Arguments:
-         - seq1, seq2 - The two sequences to compare.
-         - weight1, weight2 - The relative weights of seq1 and seq2.
-         - dictionary - The dictionary containing the starting replacement
-           info that we will modify.
-         - letters - A list of characters to include when calculating replacements.
-        """
-        # loop through each residue in the sequences
+    
         for residue1, residue2 in zip(seq1, seq2):
             if residue1 in letters and residue2 in letters:
                 dictionary[(residue1, residue2)] += weight1 * weight2
@@ -197,20 +189,7 @@ class SummaryInfo:
         return all_letters
 
     def pos_specific_score_matrix(self, axis_seq=None, chars_to_ignore=None):
-        """Create a position specific score matrix object for the alignment.
-        This creates a position specific score matrix (pssm) which is an
-        alternative method to look at a consensus sequence.
-        Arguments:
-         - chars_to_ignore - A list of all characters not to include in
-           the pssm.
-         - axis_seq - An optional argument specifying the sequence to
-           put on the axis of the PSSM. This should be a Seq object. If nothing
-           is specified, the consensus sequence, calculated with default
-           parameters, will be used.
-        Returns:
-         - A PSSM (position specific score matrix) object.
-        """
-        # determine all of the letters we have to deal with
+    
         all_letters = self._get_all_letters()
         assert all_letters
 
@@ -265,28 +244,7 @@ class SummaryInfo:
             chars_to_ignore=None,
             pseudo_count=0,
     ):
-        """Calculate the information content for each residue along an alignment.
-        Arguments:
-         - start, end - The starting an ending points to calculate the
-           information content. These points should be relative to the first
-           sequence in the alignment, starting at zero (ie. even if the 'real'
-           first position in the seq is 203 in the initial sequence, for
-           the info content, we need to use zero). This defaults to the entire
-           length of the first sequence.
-         - e_freq_table - A dictionary specifying the expected frequencies
-           for each letter (e.g. {'G' : 0.4, 'C' : 0.4, 'T' : 0.1, 'A' : 0.1}).
-           Gap characters should not be included, since these should not have
-           expected frequencies.
-         - log_base - The base of the logarithm to use in calculating the
-           information content. This defaults to 2 so the info is in bits.
-         - chars_to_ignore - A listing of characters which should be ignored
-           in calculating the info content. Defaults to none.
-        Returns:
-         - A number representing the info content for the specified region.
-        Please see the Biopython manual for more information on how information
-        content is calculated.
-        """
-        # if no end was specified, then we default to the end of the sequence
+        
         if end is None:
             end = len(self.alignment[0].seq)
         if chars_to_ignore is None:
