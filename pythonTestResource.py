@@ -148,30 +148,7 @@ class SummaryInfo:
         return Seq(consensus)
 
     def replacement_dictionary(self, skip_chars=None, letters=None):
-        """Generate a replacement dictionary to plug into a substitution matrix.
-        This should look at an alignment, and be able to generate the number
-        of substitutions of different residues for each other in the
-        aligned object.
-        Will then return a dictionary with this information::
-            {('A', 'C') : 10, ('C', 'A') : 12, ('G', 'C') : 15 ....}
-        This also treats weighted sequences. The following example shows how
-        we calculate the replacement dictionary. Given the following
-        multiple sequence alignment::
-            GTATC  0.5
-            AT--C  0.8
-            CTGTC  1.0
-        For the first column we have::
-            ('A', 'G') : 0.5 * 0.8 = 0.4
-            ('C', 'G') : 0.5 * 1.0 = 0.5
-            ('A', 'C') : 0.8 * 1.0 = 0.8
-        We then continue this for all of the columns in the alignment, summing
-        the information for each substitution in each column, until we end
-        up with the replacement dictionary.
-        Arguments:
-         - skip_chars - Not used; setting it to anything other than None
-           will raise a ValueError
-         - letters - An iterable (e.g. a string or list of characters to include.
-        """
+        
         if skip_chars is not None:
             raise ValueError(
                 "argument skip_chars has been deprecated; instead, please use 'letters' to specify the characters you want to include"
